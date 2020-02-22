@@ -31,9 +31,6 @@ CREATE TABLE employee(
   PRIMARY KEY (id)
 );
 
--- I kinda forgot why we would use this
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'penguin'
-
 SELECT * FROM employee;
 SELECT * FROM department;
 SELECT * FROM role;
