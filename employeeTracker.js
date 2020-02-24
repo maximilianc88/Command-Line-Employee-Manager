@@ -15,22 +15,18 @@ const promptMessages = {
   viewAllDpt: "View all departments",
   viewAllRole: "View all roles",
   addNewb: "Add employee",
-  remNewb: "Remove employee",
-  updateRole: "Update employee role",
-  updateMgr: "Update employee manager",
+  addRole: "Remove employee",
+  addDept: "Update employee role",
   exit: "Later gator!"
 };
 
 const connection = mysql.createConnection({
   host: "localhost",
 
-  // Your port; if not 3306
   port: 3306,
 
-  // Your username
   user: "root",
-
-  // Your password
+ 
   password: "penguin",
   database: "employeeTracker_DB"
 });
@@ -78,21 +74,22 @@ function prompt() {
         }})};
 
 
-      // view employees
+
 function viewAll() {
-  const query = connection.query('SELECT * FROM employee LEFT JOIN role on role.id = role_id', (err, res)=>{
+  const query = connection.query(`SELECT employee.id, first_name, last_name, title, department.name, salary, manager_id FROM department join role ON department.id = role.department_id
+  join employee ON role.id = employee.role_id order by employee.id asc;`, (err, res)=>{
       if (err) throw err;
-      console.table("View Employees", res);
+      console.table("View Employees", res,'Press any key to continue');
   });}
 
   function viewAllDpt() {
     const query = connection.query( "SELECT * FROM department", (err, res)=>{
       if (err) throw err;
-      console.table("View Departments", res);
+      console.table("View Departments", res,'Press any key to continue');
     });}
 
     function viewAllRole() {
       const query = connection.query("SELECT * FROM role", (err, res)=>{
         if (err) throw err;
-        console.table("View Roles", res);
+        console.table("View Roles", res,'Press any key to continue');
       });}
