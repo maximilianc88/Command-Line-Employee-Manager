@@ -11,7 +11,6 @@ const promptMessages = {
   addNewb: "Add employee",
   addRole: "Add role",
   addDept: "Add Department",
-  updateEmployee: "Update an Employee's role",
   exit: "Later gator!"
 };
 
@@ -49,7 +48,6 @@ function prompt() {
         promptMessages.addNewb,
         promptMessages.addRole,
         promptMessages.addDept,
-        promptMessages.updateEmployee,
         promptMessages.exit
       ]
     })
@@ -147,9 +145,6 @@ function prompt() {
             prompt();
         });
           break;
-
-          case promptMessages.updateEmployee:
-            break;
 
         case promptMessages.exit:
           connection.end();
