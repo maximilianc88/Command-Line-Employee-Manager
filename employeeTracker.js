@@ -1,5 +1,3 @@
-//this is where all the codey code will go. We are talking about some routes go get data, post up some new data, get and join data. I also need to see wazzup with console tablez
-
 "use strict";
 
 const mysql = require("mysql");
@@ -19,32 +17,6 @@ const promptMessages = {
   addDept: "Add Department",
   exit: "Later gator!"
 };
-
-const deptMessages = 
-  {
-      type: 'rawlist',
-      name: 'departmentz',
-      message: 'What would you like to do?',
-      choices: ['View Departments', 'Add Departments', 'Delete Departments', 'Go Back']
-  };
-
-  const roleMessages = 
-  {
-      type: 'rawlist',
-      name: 'rolez',
-      message: 'What would you like to do?',
-      choices: ['View Departments', 'Add Departments', 'Delete Departments', 'Go Back']
-  };
-
-  const employeeMessages = 
-  {
-      type: 'rawlist',
-      name: 'employeez',
-      message: 'What would you like to do?',
-      choices: ['View Departments', 'Add Departments', 'Delete Departments', 'Go Back']
-  };
-
-
 
 const connection = mysql.createConnection({
   host: "localhost",
