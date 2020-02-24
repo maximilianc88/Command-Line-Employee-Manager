@@ -4,10 +4,6 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 
-function table(message, response) {
-  return console.table(message, response, "press any key");
-}
-
 const promptMessages = {
   viewAll: "View all employees",
   viewAllDpt: "View all departments",
