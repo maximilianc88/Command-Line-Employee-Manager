@@ -4,6 +4,11 @@
 
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const consoleTable = require("console.table");
+
+function table(message, response) {
+  return console.table(message, response, "press any key");
+};
 
 const promptMessages = {
   viewAll: "View all employees",
@@ -31,60 +36,21 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
   if (err) throw err;
-  prompt();
+  return;
 });
 
-function prompt() {
-  inquirer
-    .prompt({
-      name: "action",
-      type: "rawlist",
-      message: "What would you like to do?",
-      choices: [
-        promptMessages.viewAll,
-        promptMessages.viewAllDpt,
-        promptMessages.viewAllMgr,
-        promptMessages.addNewb,
-        promptMessages.remNewb,
-        promptMessages.updateRole,
-        promptMessages.updateMgr,
-        promptMessages.exit
-      ]
-    })
-    .then(answer => {
-      console.log("answer", answer);
-      switch (answer.action) {
-        case promptMessages.viewAll:
-      //  new function
-          break;
+function table(message, response) {
+  return console.table(message, response);
+};
 
-        case promptMessages.viewAllDpt:
-      //  new function
-          break;
+// view employees
+function viewEmployees() {
+  const query = connection.query('SELECT * FROM employee LEFT JOIN role on role.id = role_id', (err, res)=>{
+      if (err) throw err;
+      console.table("View Employees", res, "press any key");
+  });
+};
 
-        case promptMessages.viewAllMgr:
-    //  new function
-          break;
+viewEmployees();
 
-        case promptMessages.addNewb:
-      //  new function
-          break;
-
-        case promptMessages.remNewb:
-       //  new function
-          break;
-
-        case promptMessages.updateRole:
-      //  new function
-          break;
-
-        case promptMessages.updateMgr:
-         //  new function
-          break;
-
-        case promptMessages.exit:
-          connection.end();
-          break;
-      }
-    });
-}
+connection.end();
