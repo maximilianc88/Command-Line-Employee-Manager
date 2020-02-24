@@ -1,7 +1,7 @@
 # MySQL Homework: Employee Tracker
 
 ## Description
- This is an command line application that is used as an interface for managing a company's employees using node, inquirer, and MySQL.
+ This is a command line application that is used as an interface for managing a company's employees using node, inquirer, and MySQL.
 
 ## User Story
 As a business owner
