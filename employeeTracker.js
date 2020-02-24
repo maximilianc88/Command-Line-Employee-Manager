@@ -12,12 +12,13 @@ function table(message, response) {
 
 const promptMessages = {
   viewAll: "View all employees",
-  viewAllDpt: "View all employees by department",
-  viewAllMgr: "View all employees by their manager",
+  viewAllDpt: "View all departments",
+  viewAllRole: "View all roles",
   addNewb: "Add employee",
   remNewb: "Remove employee",
   updateRole: "Update employee role",
-  updateMgr: "Update employee manager"
+  updateMgr: "Update employee manager",
+  exit: "Later gator!"
 };
 
 const connection = mysql.createConnection({
@@ -36,6 +37,7 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
   if (err) throw err;
+  prompt();
   return;
 });
 
@@ -43,14 +45,54 @@ function table(message, response) {
   return console.table(message, response);
 };
 
-// view employees
-function viewEmployees() {
+
+function prompt() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "rawlist",
+      message: "What would you like to do?",
+      choices: [promptMessages.viewAll, promptMessages.viewAllDpt, promptMessages.viewAllRole, promptMessages.exit]
+    })
+    .then(answer => {
+      console.log(answer);
+      switch (answer.action) {
+        case promptMessages.viewAll:
+          viewAll();
+          prompt();
+          break;
+
+          case promptMessages.viewAllDpt:
+            viewAllDpt();
+            prompt();
+            break;
+
+            case promptMessages.viewAllRole:
+              viewAllRole();
+              prompt();
+              break;
+
+          case promptMessages.exit:
+            connection.end();
+            break;
+        }})};
+
+
+      // view employees
+function viewAll() {
   const query = connection.query('SELECT * FROM employee LEFT JOIN role on role.id = role_id', (err, res)=>{
       if (err) throw err;
-      console.table("View Employees", res, "press any key");
-  });
-};
+      console.table("View Employees", res);
+  });}
 
-viewEmployees();
+  function viewAllDpt() {
+    const query = connection.query( "SELECT * FROM department", (err, res)=>{
+      if (err) throw err;
+      console.table("View Departments", res);
+    });}
 
-connection.end();
+    function viewAllRole() {
+      const query = connection.query("SELECT * FROM role", (err, res)=>{
+        if (err) throw err;
+        console.table("View Roles", res);
+      });}
